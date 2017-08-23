@@ -1,0 +1,10 @@
+$.ajax
+  type: 'GET'
+  dataType: 'json'
+  url: "https://api.themoviedb.org/3/movie/now_playing?api_key=" + "<%= ENV['tmdb_api_key'] %>"
+  success: (data) ->
+    console.log data
+    return
+  error: (e) ->
+    console.log e
+    return
