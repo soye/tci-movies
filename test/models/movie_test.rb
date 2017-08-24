@@ -5,7 +5,7 @@ class MovieTest < ActiveSupport::TestCase
     @movie = Movie.new(tmdb_id: 8587, title: "The Lion King")
   end
 
-  test "should be valid" do
+  test "movie should be valid" do
     assert @movie.valid?
   end
 
