@@ -1,0 +1,6 @@
+h4
+  ' All Reviews for
+  i =< @movie.title
+
+- @reviews.each do |review|
+  span Review by #{review.user.email}

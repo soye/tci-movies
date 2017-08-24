@@ -1,0 +1,18 @@
+= label_tag :email
+= email_field_tag :email, "", required: true
+
+br
+
+= f.label :rating
+= f.number_field :rating, required: true
+
+br
+
+= f.label :comment
+= f.text_area :comment
+
+br
+
+= f.hidden_field :movie_id, :value => params[:movie_id]
+= f.hidden_field :movie_title, :value => @movie.title
+= f.submit "Post Review"

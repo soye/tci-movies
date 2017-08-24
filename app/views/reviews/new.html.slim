@@ -1,0 +1,6 @@
+h4
+  ' Write review for
+  i =< @movie.title
+
+= form_for [@movie, @review] do |f|
+  = render 'reviews/form', f:f
