@@ -3,4 +3,5 @@ class Review < ApplicationRecord
   belongs_to :user
 
   validates :rating, :movie, :user, presence: true
+  validates :movie, uniqueness: { scope: :user }
 end
