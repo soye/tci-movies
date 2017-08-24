@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
     @review = Review.new
     if Movie.exists?(params[:movie_id])
       @movie = Movie.find(params[:movie_id])
-    else
+    else  # create movie in DB if it does not exist
       movie = TMDB.get_movie(params[:movie_id])
       @movie = Movie.create!(tmdb_id: params[:movie_id], title: movie.title)
     end

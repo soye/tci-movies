@@ -1,11 +1,21 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+sa_1:
+  rating: 4
+  comment: "My favorite movie of all time!!!"
+  movie: spirited_away
+  user: user1
 
-one:
-  email: MyString
-  rating: 1
-  comment: MyText
+sa_2:
+  rating: 4
+  movie: spirited_away
+  user: user2
 
-two:
-  email: MyString
+sa_3:
+  rating: 3
+  comment: "Good but my kids found it scary."
+  movie: spirited_away
+  user: user3
+
+fg_1:
   rating: 1
-  comment: MyText
+  movie: forrest_gump
+  user: user1
