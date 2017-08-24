@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  require 'TMDB'
+  require 'tmdb'
 
   def index
   end

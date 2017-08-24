@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  require 'TMDB'
+  require 'tmdb'
 
   # before_action :determine_scope
 
