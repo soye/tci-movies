@@ -4,7 +4,28 @@
 br
 
 = f.label :rating
-= f.number_field :rating, required: true
+.rating
+  span
+    = f.radio_button :rating, "5", checked: true
+    = f.label :rating, :value => "5" do
+      span
+  span
+    = f.radio_button :rating, "4"
+    = f.label :rating, :value => "4" do
+      span
+  span
+    = f.radio_button :rating, "3"
+    = f.label :rating, :value => "3" do
+      span
+  span
+    = f.radio_button :rating, "2"
+    = f.label :rating, :value => "2" do
+      span
+  span.checked
+    = f.radio_button :rating, "1"
+    = f.label :rating, :value => "1" do
+      span
+.u-cf
 
 br
 

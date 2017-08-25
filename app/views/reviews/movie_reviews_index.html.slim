@@ -3,4 +3,9 @@ h4
   i =< @movie.title
 
 - @reviews.each do |review|
-  span Review by #{review.user.email}
+  span
+    = render 'rating_stars', rating: review.rating
+    '  from #{review.user.email}
+
+  - unless review == @reviews.last
+    br

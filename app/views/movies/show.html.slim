@@ -3,7 +3,7 @@ h4
 
 .row
   .three.columns
-    p = image_tag @movie.poster_path
+    p = image_tag @movie.poster_path, class: "u-max-full-width"
 
   .nine.columns
     span #{@movie.release_date}  |

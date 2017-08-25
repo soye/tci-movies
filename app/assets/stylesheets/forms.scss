@@ -1,0 +1,32 @@
+.rating {
+  float: left;
+
+  span {
+    position: relative;
+    float: right;
+
+    &:hover ~ span label:after,
+    &:hover label:after,
+    &.checked label:after,
+    &.checked ~ span label:after {
+      content: '★';
+      cursor: pointer;
+    }
+
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+    }
+
+    label {
+      font-size: 3rem;
+      line-height: 3rem;
+
+      &:after{
+        content: '☆';
+      }
+    }
+  }
+}
