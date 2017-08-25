@@ -19,6 +19,20 @@ class ReviewTest < ActiveSupport::TestCase
     assert_not @review.save, "saved review without rating"
   end
 
+  test "rating should be between 1 and 5" do
+    @review.rating = 0
+    assert_not @review.save, "saved review with rating less than 1"
+
+    @review.rating = 10
+    assert_not @review.save, "saved review with rating greater than 5"
+
+    @review.rating = 5
+    assert @review.save
+
+    @review.rating = 1
+    assert @review.save
+  end
+
   test "review should belong to movie" do
     @review.movie = nil
     assert_not @review.save, "saved review without movie"
