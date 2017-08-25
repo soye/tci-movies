@@ -2,7 +2,7 @@ h4 All Reviews
 
 - @reviews.each do |review|
   span
-    = render 'rating_stars', rating: review.rating
+    = render 'shared/rating_stars', rating: review.rating
     '  for
     i = link_to "#{review.movie.title}", movie_path(review.movie)
     '  by #{review.user.email}

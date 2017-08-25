@@ -7,6 +7,7 @@ class Review < ApplicationRecord
   validates :user, uniqueness: { scope: :movie, message: "has posted review for this movie already" }
 
   scope :average_rating, -> { average(:rating) }
+  scope :order_by_recent, -> { order("created_at DESC") }
 
   after_create :update_movie_wilson_score
 

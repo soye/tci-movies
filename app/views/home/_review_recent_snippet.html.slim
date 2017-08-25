@@ -1,0 +1,12 @@
+.u-pull-left
+  - unless review.comment.empty?
+    span = %Q{"#{review.comment}"}
+    br
+
+  span
+    i = review.movie.title
+
+.u-pull-right
+  span = render 'shared/rating_stars', rating: review.rating
+
+.u-cf

@@ -4,7 +4,7 @@ h4
 
 - @reviews.each do |review|
   span
-    = render 'rating_stars', rating: review.rating
+    = render 'shared/rating_stars', rating: review.rating
     '  from #{review.user.email}
 
   - unless review == @reviews.last

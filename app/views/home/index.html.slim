@@ -6,4 +6,12 @@
 
   .four.columns
     h4 Recent Reviews
+    - @recent_reviews.each do |review|
+      = render 'review_recent_snippet', review: review
+      br
+    .u-pull-right = link_to "view all reviews", reviews_path
+    .u-cf
+
+    hr
+
     h4 Recent Movies
