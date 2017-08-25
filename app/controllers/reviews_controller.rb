@@ -38,8 +38,13 @@ class ReviewsController < ApplicationController
     end
 
     # create review
-    Review.create!(rating: params[:review][:rating], comment: params[:review][:comment], user_id: user_id, movie_id: params[:movie_id])
-    redirect_to movie_reviews_path(params[:movie_id])
+    @review = Review.new(rating: params[:review][:rating], comment: params[:review][:comment], user_id: user_id, movie_id: params[:movie_id])
+    if @review.save
+      redirect_to movie_reviews_path(params[:movie_id])
+    else
+      @movie = Movie.find(params[:movie_id])
+      render 'new'
+    end
   end
 
   protected

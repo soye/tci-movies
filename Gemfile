@@ -19,6 +19,8 @@ gem 'httparty'
 # env variables
 gem 'figaro'
 
+gem 'wilson_score'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

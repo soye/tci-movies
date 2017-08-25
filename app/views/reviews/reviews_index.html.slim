@@ -1,4 +1,11 @@
 h4 All Reviews
 
 - @reviews.each do |review|
-  span Review for #{review.movie.title} by #{review.user.email}
+  span
+    = render 'rating_stars', rating: review.rating
+    '  for
+    i = link_to "#{review.movie.title}", movie_path(review.movie)
+    '  by #{review.user.email}
+
+  - unless review == @reviews.last
+    br
