@@ -6,11 +6,26 @@ h4
     p = image_tag @movie["poster_path"], class: "u-max-full-width"
 
   .nine.columns
-    span #{@movie["release_date"]}  |
-    span
+    p.movie-
+      | #{Date.parse(@movie["release_date"]).strftime("%b %e, %Y")}  |
       - @movie["genres"].each do |g|
-        =<> g["name"]
-      ' |
-    span #{@movie["runtime"]} mins
+        =< g["name"]
+        - unless g == @movie["genres"].last
+          | ,
+      '  |
+      | #{@movie["runtime"]} mins
 
     p = @movie["overview"]
+
+    section.movie-show-reviews
+      h5.u-pull-left reviews
+
+      - if @reviews.any?
+        p.u-pull-right = link_to "Write your own review here", new_movie_review_path(@movie["id"])
+        .u-cf
+        - @reviews.each do |review|
+          = render 'movie_review_full', review: review
+
+      - else
+        .u-cf
+        p Looks like there are no reviews for this movie yet. Be the first to #{link_to "write a review here", new_movie_review_path(@movie["id"])}!

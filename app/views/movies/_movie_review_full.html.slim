@@ -1,0 +1,6 @@
+span = render 'shared/rating_stars', rating: review.rating
+br
+- unless review.comment.empty?
+  span = %Q("#{review.comment}")
+  br
+p rated by #{review.user.email} on #{review.created_at.strftime("%b %e, %Y")}
