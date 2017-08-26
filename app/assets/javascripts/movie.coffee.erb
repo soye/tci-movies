@@ -1,8 +1,17 @@
 $ ->
   sort_by_title_direction = "desc"
+  sort_by_primary_release_date_direction = "asc"
 
   $('a.link-sort-title').click ->
-    sort_by_title_direction = if sort_by_title_direction == 'asc' then 'desc' else 'asc'
+    # sort title by direction opposite of current direction
+    if sort_by_title_direction == 'asc'
+      sort_by_title_direction = 'desc'
+      $('a.link-sort-title').text('title ▲')
+      $('a.link-sort-release-date').text('release date')
+    else
+      sort_by_title_direction = 'asc'
+      $('a.link-sort-title').text('title ▼')
+      $('a.link-sort-release-date').text('release date')
 
     $.ajax
       type: 'GET'
@@ -11,7 +20,30 @@ $ ->
         sort_by: "original_title." + sort_by_title_direction
         page: 1
       success: (data) ->
-        console.log data
+        return
+      error: (e) ->
+        console.log e
+        return
+    false
+
+  $('a.link-sort-release-date').click ->
+    # sort release date by direction opposite of current direction
+    if sort_by_primary_release_date_direction == 'asc'
+      sort_by_primary_release_date_direction = 'desc'
+      $('a.link-sort-release-date').text('release date ▼')
+      $('a.link-sort-title').text('title')
+    else
+      sort_by_primary_release_date_direction = 'asc'
+      $('a.link-sort-release-date').text('release date ▲')
+      $('a.link-sort-title').text('title')
+
+    $.ajax
+      type: 'GET'
+      url: '/search'
+      data:
+        sort_by: "primary_release_date." + sort_by_primary_release_date_direction
+        page: 1
+      success: (data) ->
         return
       error: (e) ->
         console.log e
