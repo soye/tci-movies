@@ -1,0 +1,9 @@
+.u-pull-left
+  = render 'shared/rating_stars', rating: review.rating
+
+.u-pull-left
+  span
+    =< %Q{"#{review.comment}"}
+    '  - #{review.user.email}
+
+.u-cf

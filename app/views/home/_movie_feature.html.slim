@@ -1,4 +1,13 @@
 .u-pull-left
-  / - if @movie.in_db
-  /   p huzzah in db
+  h5
+    i = link_to movie.title, movie_path(movie)
+
+  - if movie.reviews
+    - movie.reviews.order_by_recent.limit(2).each do |review|
+      = render 'movie_feature_review_snippet', review: review
+
+  span => link_to "view more", movie_reviews_path(movie)
+  span => link_to "leave a review", new_movie_review_path(movie)
+
 .u-pull-right
+.u-cf

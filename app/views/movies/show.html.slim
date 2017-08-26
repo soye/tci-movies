@@ -1,16 +1,16 @@
 h4
-  i = @movie.title
+  i = @movie["title"]
 
 .row
   .three.columns
-    p = image_tag @movie.poster_path, class: "u-max-full-width"
+    p = image_tag @movie["poster_path"], class: "u-max-full-width"
 
   .nine.columns
-    span #{@movie.release_date}  |
+    span #{@movie["release_date"]}  |
     span
-      - @movie.genres.each do |g|
+      - @movie["genres"].each do |g|
         =<> g["name"]
       ' |
-    span #{@movie.runtime} mins
+    span #{@movie["runtime"]} mins
 
-    p = @movie.overview
+    p = @movie["overview"]

@@ -1,1 +1,7 @@
-h4 List of All Movies
+h4 search all movies...
+
+p sort by: #{link_to "title", "#", class: "link-sort-title"} #{link_to "release date", "#", class: "link-sort-release-date"}
+
+.test
+.movie-results
+  = render 'movie_results_list', movies: @movies

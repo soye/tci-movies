@@ -12,6 +12,8 @@ class Review < ApplicationRecord
   after_create :update_movie_wilson_score
 
   def update_movie_wilson_score
-    puts WilsonScore.rating_lower_bound(self.movie.reviews.average_rating, self.movie.reviews.count, 1..5)
+    movie = self.movie
+    movie.wilson_score = WilsonScore.rating_lower_bound(movie.reviews.average_rating, movie.reviews.count, 1..5)
+    movie.save!
   end
 end

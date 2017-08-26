@@ -1,11 +1,12 @@
 .row
   .eight.columns
-    h4 Best of 2017
-    / - @movies.each do |movie|
-    /   = render 'movie_feature', movie: movie
+    h4 what our users recommend...
+    - @movies.each do |movie|
+      = render 'movie_feature', movie: movie
+      br
 
   .four.columns
-    h4 Recent Reviews
+    h4 recent reviews
     - @recent_reviews.each do |review|
       = render 'review_recent_snippet', review: review
       br
@@ -14,4 +15,4 @@
 
     hr
 
-    h4 Recent Movies
+    h4 recent movies

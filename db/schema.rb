@@ -10,15 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824225922) do
+ActiveRecord::Schema.define(version: 20170825211636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "genres", primary_key: "tmdb_id", id: :integer, default: nil, force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "genres_movies", id: false, force: :cascade do |t|
+    t.bigint "genre_id"
+    t.bigint "movie_id"
+    t.index ["genre_id"], name: "index_genres_movies_on_genre_id"
+    t.index ["movie_id"], name: "index_genres_movies_on_movie_id"
+  end
 
   create_table "movies", primary_key: "tmdb_id", id: :integer, default: nil, force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "wilson_score"
   end
 
   create_table "reviews", force: :cascade do |t|

@@ -6,31 +6,33 @@ class TMDB
 
   base_uri 'https://api.themoviedb.org/3'
 
-  attr_accessor :title, :release_date, :genres, :overview, :poster_path, :runtime, :in_db
-
-  def initialize(movieItem)
-    self.title = movieItem["title"]
-    self.release_date = movieItem["release_date"]
-    self.genres = movieItem["genres"]
-    self.overview = movieItem["overview"]
-    self.poster_path = get_full_poster_path(movieItem["poster_path"])
-    self.runtime = movieItem["runtime"]
-    self.in_db = Movie.exists?(movieItem["id"])
-  end
-
-  def get_full_poster_path(path, size = "w185")
-    if path.empty?
-      ""
-    else
-      "http://image.tmdb.org/t/p/" + size + "/" + path
-    end
-  end
+  attr_accessor :title, :release_date, :genres, :overview, :poster_path, :runtime, :id, :in_db
 
   class << self
     def get_movie(movieId)
       response = get("/movie/#{movieId}?api_key=#{ENV['tmdb_api_key']}")
       if response.success?
-        new(response)
+        get_movie_hash(response)
+      else
+        raise response.response
+      end
+    end
+
+    def search_movies(options = {})
+      url = "/discover/movie?api_key=#{ENV['tmdb_api_key']}&include_adult=false&include_video=false"
+      if options["sort_by"]
+        url += "&sort_by=#{options['sort_by']}"
+      else
+        url += "&sort_by=popularity.desc"
+      end
+
+      response = get(url)
+      if response.success?
+        movies = Array.new
+        response["results"].each do |movie|
+          movies << get_movie_hash(movie)
+        end
+        movies
       else
         raise response.response
       end
@@ -41,7 +43,7 @@ class TMDB
       if response.success?
         movies = Array.new
         response["results"].each do |movie|
-          movies << new(movie)
+          movies << get_movie_hash(movie)
         end
         movies
       else
@@ -64,6 +66,29 @@ class TMDB
         puts response
       else
         raise response.response
+      end
+    end
+
+    private
+
+    def get_movie_hash(movieItem)
+      movie = Hash.new
+      movie["title"] = movieItem["title"]
+      movie["release_date"] = movieItem["release_date"]
+      movie["genres"] = movieItem["genres"]
+      movie["overview"] = movieItem["overview"]
+      movie["poster_path"] = get_full_poster_path(movieItem["poster_path"])
+      movie["runtime"] = movieItem["runtime"]
+      movie["id"] = movieItem["id"]
+      movie["in_db"] = Movie.exists?(movieItem["id"])
+      movie
+    end
+
+    def get_full_poster_path(path, size = "w185")
+      if path.nil? or path.empty?
+        ""
+      else
+        "http://image.tmdb.org/t/p/" + size + "/" + path
       end
     end
   end

@@ -1,10 +1,19 @@
-# $.ajax
-#   type: 'GET'
-#   dataType: 'json'
-#   url: "https://api.themoviedb.org/3/discover/movie?api_key=<%= ENV['tmdb_api_key']%>&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=<%= Date.today.year %>"
-#   success: (data) ->
-#     console.log data
-#     return
-#   error: (e) ->
-#     console.log e
-#     return
+$ ->
+  sort_by_title_direction = "desc"
+
+  $('a.link-sort-title').click ->
+    sort_by_title_direction = if sort_by_title_direction == 'asc' then 'desc' else 'asc'
+
+    $.ajax
+      type: 'GET'
+      url: '/search'
+      data:
+        sort_by: "original_title." + sort_by_title_direction
+        page: 1
+      success: (data) ->
+        console.log data
+        return
+      error: (e) ->
+        console.log e
+        return
+    false
