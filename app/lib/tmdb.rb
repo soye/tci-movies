@@ -63,7 +63,14 @@ class TMDB
     def get_genres
       response = get("/genre/movie/list?api_key=#{ENV['tmdb_api_key']}")
       if response.success?
-        puts response
+        genres = Array.new
+        response["genres"].each do |genre|
+          item = Hash.new
+          item["tmdb_id"] = genre["id"]
+          item["name"] = genre["name"]
+          genres << item
+        end
+        genres
       else
         raise response.response
       end
