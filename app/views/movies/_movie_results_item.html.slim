@@ -1,16 +1,17 @@
-- if movie.has_key?("poster_path")
+.movie-results-item
+  - if movie.has_key?("poster_path")
+    .u-pull-left
+      span = image_tag movie["poster_path"]
+
   .u-pull-left
-    span = image_tag movie["poster_path"]
+    h5
+      i = link_to movie["title"], movie_path(movie["id"])
+    span
+      b released on
+      =< movie["release_date"]
+    br
 
-.u-pull-left
-  h5
-    i = link_to movie["title"], movie_path(movie["id"])
-  span
-    b released on
-    =< movie["release_date"]
-  br
+    span => link_to "view more", movie_reviews_path(movie["id"])
+    span => link_to "leave a review", new_movie_review_path(movie["id"])
 
-  span => link_to "view more", movie_reviews_path(movie["id"])
-  span => link_to "leave a review", new_movie_review_path(movie["id"])
-
-.u-cf
+  .u-cf

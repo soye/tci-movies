@@ -9,6 +9,7 @@ class TMDB
   attr_accessor :title, :release_date, :genres, :overview, :poster_path, :runtime, :id, :in_db
 
   class << self
+    # returns movie details given movie ID
     def get_movie(movieId)
       response = get("/movie/#{movieId}?api_key=#{ENV['tmdb_api_key']}")
       if response.success?
@@ -18,15 +19,19 @@ class TMDB
       end
     end
 
+    # returns list of movies that match the search options
     def search_movies(options = {})
-      url = "/discover/movie?api_key=#{ENV['tmdb_api_key']}&include_adult=false&include_video=false"
-      if options["sort_by"]
-        url += "&sort_by=#{options['sort_by']}"
-      else
-        url += "&sort_by=popularity.desc"
+      url = "/discover/movie?api_key=#{ENV['tmdb_api_key']}"
+
+      options.each do |key, value|
+        unless key == "controller" or key == "action"
+          url += "&" + key + "=" + value
+        end
       end
 
-      response = get(url)
+      puts url
+
+      response = get(url, body: options.to_json)
       if response.success?
         movies = Array.new
         response["results"].each do |movie|
@@ -87,10 +92,11 @@ class TMDB
       movie["poster_path"] = get_full_poster_path(movieItem["poster_path"])
       movie["runtime"] = movieItem["runtime"]
       movie["id"] = movieItem["id"]
-      movie["in_db"] = Movie.exists?(movieItem["id"])
+      # movie["in_db"] = Movie.exists?(movieItem["id"])
       movie
     end
 
+    # returns url to poster image, with option to specify image dimensions
     def get_full_poster_path(path, size = "w185")
       if path.nil? or path.empty?
         ""

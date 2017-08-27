@@ -1,7 +1,19 @@
-h4 search all movies...
+h4 discover movies...
 
-p sort by: #{link_to "title", "#", class: "link-sort-title"} #{link_to "release date", "#", class: "link-sort-release-date"}
+.row
+  .three.columns
+    = form_tag "/search", method: "get", class: "movies-search-form" do
+      = button_tag "show me the stars", name: "movies-search-form-submit", type: "button"
 
-.test
-.movie-results
-  = render 'movie_results_list', movies: @movies
+      br
+      = label_tag :genres, "filter by genres:"
+      - @genres.each do |genre|
+        span.genre-checkbox
+          = label_tag do
+            = check_box_tag 'genres[]', genre.id, true, {id: "genres_#{genre.id}"}
+            =< genre.name
+
+  .nine.columns
+    p sort by: #{link_to "title", "#", class: "link-sort-title"} #{link_to "release date", "#", class: "link-sort-release-date"}
+    .movie-results
+      = render 'movie_results_list', movies: @movies
