@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
 
   def index
     @genres = Genre.all
-    @movies = TMDB.get_popular_movies_by_year(Date.today.year)
+    @movies = TMDB.search_movies()
   end
 
   def show

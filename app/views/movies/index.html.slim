@@ -17,3 +17,8 @@ h4 discover movies...
     p sort by: #{link_to "title", "#", class: "link-sort-title"} #{link_to "release date", "#", class: "link-sort-release-date"}
     .movie-results
       = render 'movie_results_list', movies: @movies
+      .pagination
+        .u-pull-right
+          = link_to "next page →", "#", class: "link-new-page", data: { page: 2 }
+        center page 1 / 16092
+        .u-cf
