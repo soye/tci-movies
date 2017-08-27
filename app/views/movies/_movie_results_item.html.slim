@@ -1,7 +1,7 @@
 .movie-results-item
   - if movie.has_key?("poster_path")
     .u-pull-left
-      span = image_tag movie["poster_path"]
+      span = image_tag movie["poster_path"], class: "movie-poster"
 
   .u-pull-left
     h5

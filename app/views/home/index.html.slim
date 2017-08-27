@@ -1,9 +1,14 @@
 .row
   .eight.columns
-    h4 what our users recommend...
-    - @movies.each do |movie|
-      = render 'movie_feature', movie: movie
-      br
+    h4 browse all movies
+    p sort by: #{link_to "title", "#", class: "link-sort-title"} #{link_to "release date", "#", class: "link-sort-release-date"}
+    .movie-results
+      = render 'movies/movie_results_list', movies: @movies
+      .pagination
+        .u-pull-right
+          = link_to "next page →", "#", class: "link-new-page", data: { page: 2 }
+        center page 1 / 16092
+        .u-cf
 
   .four.columns
     h4 recent reviews

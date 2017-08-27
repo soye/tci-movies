@@ -55,7 +55,7 @@ $ ->
       movie = getMovieHash(movie_item)
       movie_html = '<div class="movie-results-item">'
       unless movie_item['poster_path'] is null
-        movie_html += '<div class="u-pull-left"><span>' + '<img src="http://image.tmdb.org/t/p/w185//' + movie['poster_path'] + '"></span></div>'
+        movie_html += '<div class="u-pull-left"><span>' + '<img src="http://image.tmdb.org/t/p/w185//' + movie['poster_path'] + '" class="movie-poster"></span></div>'
       movie_html += '<div class="u-pull-left"><h5><i><a href="/movies/' + movie['id'] + '" target="_blank">' + movie['title'] + '</a></i></h5>' + '<span><b>released on</b> ' + movie['release_date'] + '</span><br>' + '<span><a href="/movies/' + movie['id'] + '/reviews" target="_blank">view more</a></span> ' + '<span><a href="/movies/' + movie['id'] + '/reviews/new" target="_blank">leave a review</a></span>' + '</div><div class="u-cf"></div></div>'
       html += movie_html
 

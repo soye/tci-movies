@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
+  require 'tmdb'
+
   def index
     @recent_reviews = Review.order_by_recent.limit(4)
-    @movies = Movie.order_by_popularity.limit(5)
+    @movies = TMDB.search_movies()
   end
 end
