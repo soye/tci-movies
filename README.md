@@ -63,7 +63,7 @@ The application uses a handful of helper libraries in testing:
 
 To run the entire test suite:
 
-    bin/rails test
+    rails test
 
 To run a single test:
 
