@@ -1,7 +1,7 @@
 .row
   .eight.columns
     h4 popular movies
-    p continue your exploration: #{link_to "browse all movies", movies_path} #{link_to "search movies", search_path}
+    / h5 explore in depth: #{link_to "browse all movies", movies_path} #{link_to "search movies", search_path}
     = render 'shared/links_sort_by'
     .movie-results
       = render 'movies/movie_results_list', movies: @movies

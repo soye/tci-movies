@@ -1,11 +1,16 @@
-// body {
-//   background: image-url('bg_stars.jpg') repeat top left;
-// }
+body {
+  background: image-url('bg_stars.jpg') fixed top left;
+}
 
-// .container {
-//   background: #ffffff;
-//   padding: 10px;
-// }
+div.container {
+  background: #ffffff;
+  padding: 10px;
+  max-width: 1100px;
+}
+
+li {
+  list-style-type : none;
+}
 
 /*** Links ***/
 a {

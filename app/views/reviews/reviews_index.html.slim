@@ -1,11 +1,12 @@
-h4 All Reviews
+h4 all reviews, alphabetically by movie
 
-- @reviews.each do |review|
-  span
-    = render 'shared/rating_stars', rating: review.rating
-    '  for
-    i = link_to "#{review.movie.title}", movie_path(review.movie)
-    '  by #{review.user.email}
-
-  - unless review == @reviews.last
-    br
+ul
+  - @reviews.each do |review|
+    li
+      = render 'shared/rating_stars', rating: review.rating
+      '  for
+      i = link_to "#{review.movie.title}", movie_path(review.movie)
+      ' :
+      - unless review.comment.empty?
+        =< %Q{"#{review.comment}"}
+        '  by #{review.user.email} (#{review.created_at.strftime("%b %e, %Y")})

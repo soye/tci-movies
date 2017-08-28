@@ -4,7 +4,7 @@
     br
 
   span
-    i = review.movie.title
+    i = link_to "#{review.movie.title}", movie_path(review.movie)
 
 .u-pull-right
   span = render 'shared/rating_stars', rating: review.rating
