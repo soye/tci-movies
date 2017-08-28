@@ -61,9 +61,13 @@ The application uses a handful of helper libraries in testing:
   * Capybara, a DSL for writing acceptance tests
   * VCR, for recording external HTTP requests
 
-To run the entire test suite:
+To run the usual test suite:
 
     rails test
+    
+To run the system tests:
+
+    rails test:system
 
 To run a single test:
 
