@@ -18,7 +18,7 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.javascript_driver = :poltergeist
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 10
 
 VCR.configure do |config|
   config.cassette_library_dir = "test/cassettes"

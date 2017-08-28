@@ -26,8 +26,6 @@ class MoviesTest < ApplicationSystemTestCase
 
       click_on "next page →"
 
-      page.must_have_content "title ▼"
-      assert_link "title ▼"
       assert_content "page 2"
     end
   end

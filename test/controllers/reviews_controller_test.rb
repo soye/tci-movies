@@ -5,6 +5,6 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     get reviews_path
     assert_response :success
 
-    assert_select 'h4', "All Reviews"
+    assert_select 'h4', "all reviews, alphabetically by movie"
   end
 end
