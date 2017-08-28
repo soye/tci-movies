@@ -1,4 +1,26 @@
-$ ->
+$(document).on 'turbolinks:load', ->
+  GENRES =
+    28: "Action"
+    12: "Adventure"
+    16: "Animation "
+    35: "Comedy"
+    80: "Crime"
+    99: "Documentary"
+    18: "Drama"
+    10751: "Family"
+    14: "Fantasy"
+    36: "History"
+    27: "Horror"
+    10402: "Music"
+    9648: "Mystery"
+    10749: "Romance"
+    878: "Science Fiction"
+    10770: "TV Movie"
+    53: "Thriller"
+    10752: "War"
+    37: "Western"
+
+  call_type = ""
   sort_type = ""
   sort_by_title_direction = "desc"
   sort_by_primary_release_date_direction = "asc"
@@ -9,6 +31,7 @@ $ ->
     include_video: false
     sort_by: ""
     without_genres: ""
+    query: ""
     page: 1
 
   # return current sorting type
@@ -32,6 +55,7 @@ $ ->
   updateDataParams = ->
     data_params["without_genres"] = getWithoutGenres()
     data_params["sort_by"] = getSortBy()
+    data_params["query"] = ""
     data_params["page"] = 1
 
   # return hash of movie details
@@ -39,14 +63,23 @@ $ ->
     movie = {}
     movie["title"] = movie_item["title"]
     movie["release_date"] = movie_item["release_date"]
-    movie["genres"] = movie_item["genres"]
+    movie["genres"] = movie_item["genre_ids"]
     movie["overview"] = movie_item["overview"]
     movie["poster_path"] = movie_item["poster_path"]
     movie["runtime"] = movie_item["runtime"]
     movie["id"] = movie_item["id"]
     return movie
 
-  # display results in html given json of search results
+  # given array of genre ids, return comma-separated string of genres
+  getListOfGenres = (genresArray) ->
+    genresList = ""
+    genresArray.forEach (genreId, index) ->
+      genresList += GENRES[genreId]
+      unless index == genresArray.length - 1
+        genresList += ", "
+    return genresList
+
+  # display results in html given json of query results
   displayResults = (data) ->
     html = "";
 
@@ -56,23 +89,58 @@ $ ->
       movie_html = '<div class="movie-results-item">'
       unless movie_item['poster_path'] is null
         movie_html += '<div class="u-pull-left"><span>' + '<img src="http://image.tmdb.org/t/p/w185//' + movie['poster_path'] + '" class="movie-poster"></span></div>'
-      movie_html += '<div class="u-pull-left"><h5><i><a href="/movies/' + movie['id'] + '" target="_blank">' + movie['title'] + '</a></i></h5>' + '<span><b>released on</b> ' + movie['release_date'] + '</span><br>' + '<span><a href="/movies/' + movie['id'] + '/reviews" target="_blank">view more</a></span> ' + '<span><a href="/movies/' + movie['id'] + '/reviews/new" target="_blank">leave a review</a></span>' + '</div><div class="u-cf"></div></div>'
+      movie_html += '<div class="u-pull-left"><h5><i><a href="/movies/' + movie['id'] + '">' + movie['title'] + '</a></i></h5>'
+      movie_html += '<span><b>released:</b> ' + movie["release_date"] + '</span><br>'
+      movie_html += '<span><b>genres:</b> ' + getListOfGenres(movie["genres"]) + '</span><br>'
+      movie_html += '<span><a href="/movies/' + movie['id'] + '">view more</a></span> '
+      movie_html += '<span><a href="/movies/' + movie['id'] + '/reviews/new">leave a review</a></span> </div><div class="u-cf"></div></div>'
+
       html += movie_html
 
     # add pagination
     html += '<div class="pagination">'
     if data["page"] isnt 1
-      html += '<div class="u-pull-left"><a href="#" class="link-new-page" data-page=' + (data["page"] - 1) + '>← previous page</a></div>'
+      html += '<div class="u-pull-left"><a href="#" class="link-new-page" data-page=' + (data["page"] - 1) + ' data-call=' + call_type + '>← previous page</a></div>'
     if data["page"] isnt data["total_pages"]
-      html += '<div class="u-pull-right"><a href="#" class="link-new-page" data-page=' + (data["page"] + 1) + '>next page →</a></div>'
+      html += '<div class="u-pull-right"><a href="#" class="link-new-page" data-page=' + (data["page"] + 1) + ' data-call=' + call_type + '>next page →</a></div>'
     html += '<center>page ' + data["page"] + ' / ' + data["total_pages"] + '</center><div class="u-cf"></div></div>'
 
     # replace html with new results
     $('.movie-results').html html
     return
 
+
+  # make ajax call to TMDB's search api
+  ajaxSearchCall = ->
+    call_type = "search"
+
+    $.ajax
+      type: 'GET'
+      url: 'https://api.themoviedb.org/3/search/movie'
+      data: data_params
+      beforeSend: (jqXHR, settings) ->
+        console.log settings.url
+      success: (data) ->
+        displayResults(data)
+        return
+      error: (e) ->
+        console.log e
+        return
+    false
+
+  # query based on search params
+  $('button[name="movies-search-form-submit"]').click ->
+    # updata data params with query text, reset to page 1 of results
+    data_params["query"] = $('input#query').val()
+    data_params["page"] = 1
+
+    ajaxSearchCall()
+    false
+
   # make ajax call to TMDB's discover api
   ajaxDiscoverCall = ->
+    call_type = "discover"
+
     $.ajax
       type: 'GET'
       url: 'https://api.themoviedb.org/3/discover/movie'
@@ -86,16 +154,21 @@ $ ->
         console.log e
         return
 
-  # search based on filter params
-  $('button[name="movies-search-form-submit"]').click ->
+  # query based on filter params
+  $('button[name="movies-discover-form-submit"]').click ->
+    # reset sort type when genres are updated
+    sort_type = ""
+    $('.links-sort-by a').removeClass 'current'
+
     updateDataParams()
     ajaxDiscoverCall()
     false
 
-
   # sort by title in ascending or descending order
   $('a.link-sort-title').click ->
     sort_type = 'original_title'
+    $('.links-sort-by a').removeClass 'current'
+    $('.link-sort-title').addClass 'current'
 
     # sort title by direction opposite of current direction
     if sort_by_title_direction == 'asc'
@@ -115,6 +188,8 @@ $ ->
   # sort by release date in ascending or descending order
   $('a.link-sort-release-date').click ->
     sort_type = 'primary_release_date'
+    $('.links-sort-by a').removeClass 'current'
+    $('.link-sort-release-date').addClass 'current'
 
     # sort release date by direction opposite of current direction
     if sort_by_primary_release_date_direction == 'asc'
@@ -130,8 +205,12 @@ $ ->
     ajaxDiscoverCall()
     false
 
+
   # get previous or next page of results
   $('.movie-results').on 'click', 'a.link-new-page', ->
     data_params["page"] = $(this).data "page"
-    ajaxDiscoverCall()
+    if $(this).data("call") is "discover"
+      ajaxDiscoverCall()
+    else
+      ajaxSearchCall()
     false

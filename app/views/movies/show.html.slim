@@ -6,14 +6,7 @@ h4
     p = image_tag @movie["poster_path"], class: "u-max-full-width"
 
   .nine.columns
-    p.movie-
-      | #{Date.parse(@movie["release_date"]).strftime("%b %e, %Y")}  |
-      - @movie["genres"].each do |g|
-        =< g["name"]
-        - unless g == @movie["genres"].last
-          | ,
-      '  |
-      | #{@movie["runtime"]} mins
+    p #{Date.parse(@movie["release_date"]).strftime("%b %e, %Y")}  |  #{list_of_genres(@movie["genres"])}  |  #{@movie["runtime"]} mins
 
     p = @movie["overview"]
 

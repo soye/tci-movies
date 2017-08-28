@@ -2,8 +2,8 @@ h4 discover movies...
 
 .row
   .three.columns
-    = form_tag "/search", method: "get", class: "movies-search-form" do
-      = button_tag "show me the stars", name: "movies-search-form-submit", type: "button"
+    = form_tag "/discover", method: "get", class: "movies-discover-form" do
+      = button_tag "show me the stars", name: "movies-discover-form-submit", type: "button"
 
       br
       = label_tag :genres, "filter by genres:"
@@ -14,11 +14,11 @@ h4 discover movies...
             =< genre.name
 
   .nine.columns
-    p sort by: #{link_to "title", "#", class: "link-sort-title"} #{link_to "release date", "#", class: "link-sort-release-date"}
+    = render 'shared/links_sort_by'
     .movie-results
       = render 'movie_results_list', movies: @movies
       .pagination
         .u-pull-right
-          = link_to "next page →", "#", class: "link-new-page", data: { page: 2 }
+          = link_to "next page →", "#", class: "link-new-page", data: { page: 2, call: "discover" }
         center page 1 / 16092
         .u-cf

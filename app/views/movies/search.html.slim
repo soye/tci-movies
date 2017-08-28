@@ -1,0 +1,11 @@
+h4 search movies...
+
+.row
+  .three.columns
+    = form_tag "/search", method: "get", class: "movies-search-form" do
+      = label_tag :query, "search by title"
+      = text_field_tag :query, "", placeholder: "lord of the rings"
+      = button_tag "find the stars", name: "movies-search-form-submit", type: "button"
+
+  .nine.columns
+    .movie-results

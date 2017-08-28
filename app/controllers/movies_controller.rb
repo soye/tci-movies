@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
 
   def index
     @genres = Genre.all
-    @movies = TMDB.search_movies()
+    @movies = TMDB.discover_movies()
   end
 
   def show
@@ -12,7 +12,10 @@ class MoviesController < ApplicationController
   end
 
   def search
-    @results = TMDB.search_movies(params)
+  end
+
+  def discover
+    @results = TMDB.discover_movies(params)
     respond_to do |format|
       format.js
     end

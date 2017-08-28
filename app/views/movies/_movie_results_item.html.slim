@@ -6,9 +6,15 @@
   .u-pull-left
     h5
       i = link_to movie["title"], movie_path(movie["id"])
+
     span
-      b released on
+      b released:
       =< movie["release_date"]
+    br
+
+    span
+      b genres:
+      =< list_of_genres(movie["genres"])
     br
 
     span => link_to "view more", movie_reviews_path(movie["id"])

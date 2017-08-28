@@ -1,12 +1,13 @@
 .row
   .eight.columns
-    h4 browse all movies
-    p sort by: #{link_to "title", "#", class: "link-sort-title"} #{link_to "release date", "#", class: "link-sort-release-date"}
+    h4 popular movies
+    p continue your exploration: #{link_to "browse all movies", movies_path} #{link_to "search movies", search_path}
+    = render 'shared/links_sort_by'
     .movie-results
       = render 'movies/movie_results_list', movies: @movies
       .pagination
         .u-pull-right
-          = link_to "next page →", "#", class: "link-new-page", data: { page: 2 }
+          = link_to "next page →", "#", class: "link-new-page", data: { page: 2, call: "discover" }
         center page 1 / 16092
         .u-cf
 
@@ -21,3 +22,8 @@
     hr
 
     h4 recent movies
+    - @recent_movies.take(5).each do |movie|
+      i = link_to "#{movie['title']}", movie_path(movie['id'])
+      br
+    .u-pull-right = link_to "view all movies", movies_path
+    .u-cf
