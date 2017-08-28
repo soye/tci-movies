@@ -118,8 +118,8 @@ $(document).on 'turbolinks:load', ->
       type: 'GET'
       url: 'https://api.themoviedb.org/3/search/movie'
       data: data_params
-      beforeSend: (jqXHR, settings) ->
-        console.log settings.url
+      # beforeSend: (jqXHR, settings) ->
+      #   console.log settings.url
       success: (data) ->
         displayResults(data)
         return
@@ -145,8 +145,8 @@ $(document).on 'turbolinks:load', ->
       type: 'GET'
       url: 'https://api.themoviedb.org/3/discover/movie'
       data: data_params
-      beforeSend: (jqXHR, settings) ->
-        console.log settings.url
+      # beforeSend: (jqXHR, settings) ->
+      #   console.log settings.url
       success: (data) ->
         displayResults(data)
         return

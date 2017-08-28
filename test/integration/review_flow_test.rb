@@ -13,17 +13,19 @@ class ReviewFlowTest < ActionDispatch::IntegrationTest
       }
     }
 
-    get movie_path(params["movie_id"])
-    assert_response :success
+    VCR.use_cassette 'successfully post review for new movie' do
+      get movie_path(params["movie_id"])
+      assert_response :success
 
-    get new_movie_review_path(params["movie_id"])
-    assert_response :success
+      get new_movie_review_path(params["movie_id"])
+      assert_response :success
 
-    post movie_reviews_path(params["movie_id"]), params: params
+      post movie_reviews_path(params["movie_id"]), params: params
 
-    assert_response :redirect
-    follow_redirect!
-    assert_response :success
-    assert_select "i", "Death Note"
+      assert_response :redirect
+      follow_redirect!
+      assert_response :success
+      assert_select "i", "Death Note"
+    end
   end
 end

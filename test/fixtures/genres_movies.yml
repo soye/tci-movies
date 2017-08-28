@@ -1,0 +1,30 @@
+# genre_id and movie_id must be specified because their tmdb_id attribute is the primary key
+# rails-generated ids will cause tests to fail
+
+sa1:
+  movie_id: 129
+  genre_id: 14
+
+sa2:
+  movie_id: 129
+  genre_id: 12
+
+sa3:
+  movie_id: 129
+  genre_id: 16
+
+sa4:
+  movie_id: 129
+  genre_id: 10751
+
+fg1:
+  movie_id: 13
+  genre_id: 35
+
+fg2:
+  movie_id: 13
+  genre_id: 18
+
+fg3:
+  movie_id: 13
+  genre_id: 10749

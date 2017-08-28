@@ -2,9 +2,12 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/rails/capybara'
 require 'capybara'
+require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara/dsl'
 require 'capybara/minitest'
+require 'vcr'
+require 'webmock/minitest'
 
 Capybara.register_driver :poltergeist do |app|
   options = {
@@ -16,6 +19,13 @@ end
 
 Capybara.javascript_driver = :poltergeist
 Capybara.default_max_wait_time = 5
+
+VCR.configure do |config|
+  config.cassette_library_dir = "test/cassettes"
+  config.hook_into :webmock
+  config.ignore_localhost = true
+  config.allow_http_connections_when_no_cassette = true
+end
 
 class ActiveSupport::TestCase
   fixtures :all
