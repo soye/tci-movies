@@ -1,0 +1,75 @@
+action:
+  tmdb_id: 28
+  name: "Action"
+
+adventure:
+  tmdb_id: 12
+  name: "Adventure"
+
+animation:
+  tmdb_id: 16
+  name: "Animation"
+
+comedy:
+  tmdb_id: 35
+  name: "Comedy"
+
+crime:
+  tmdb_id: 80
+  name: "Crime"
+
+documentary:
+  tmdb_id: 99
+  name: "Documentary"
+
+drama:
+  tmdb_id: 18
+  name: "Drama"
+
+family:
+  tmdb_id: 10751
+  name: "Family"
+
+fantasy:
+  tmdb_id: 14
+  name: "Fantasy"
+
+history:
+  tmdb_id: 36
+  name: "History"
+
+horror:
+  tmdb_id: 27
+  name: "Horror"
+
+music:
+  tmdb_id: 10402
+  name: "Music"
+
+mystery:
+  tmdb_id: 9648
+  name: "Mystery"
+
+romance:
+  tmdb_id: 10749
+  name: "Romance"
+
+science_fiction:
+  tmdb_id: 878
+  name: "Science Fiction"
+
+tv_movie:
+  tmdb_id: 10770
+  name: "TV Movie"
+
+thriller:
+  tmdb_id: 53
+  name: "Thriller"
+
+war:
+  tmdb_id: 10752
+  name: "War"
+
+western:
+  tmdb_id: 37
+  name: "Western"

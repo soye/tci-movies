@@ -9,12 +9,9 @@ class ReviewsController < ApplicationController
       @movie = TMDB.get_movie(params[:movie_id])
       render 'movie_reviews_index'
     else
-      @reviews = Review.all
+      @reviews = Review.joins(:movie).order("movies.title")
       render 'reviews_index'
     end
-  end
-
-  def show
   end
 
   def new
@@ -40,7 +37,7 @@ class ReviewsController < ApplicationController
     # create review
     @review = Review.new(rating: params[:review][:rating], comment: params[:review][:comment], user_id: user_id, movie_id: params[:movie_id])
     if @review.save
-      redirect_to movie_reviews_path(params[:movie_id])
+      redirect_to movie_path(params[:movie_id])
     else
       @movie = Movie.find(params[:movie_id])
       render 'new'

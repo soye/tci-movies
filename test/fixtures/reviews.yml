@@ -1,21 +1,24 @@
+# must specify movie_id because Movie's primary key is the attribute tmdb_id
+# Rails-generated movie_id will cause tests to fail
+
 sa_1:
   rating: 4
   comment: "My favorite movie of all time!!!"
-  movie: spirited_away
+  movie_id: 129
   user: user1
 
 sa_2:
   rating: 4
-  movie: spirited_away
+  movie_id: 129
   user: user2
 
 sa_3:
   rating: 3
   comment: "Good but my kids found it scary."
-  movie: spirited_away
+  movie_id: 129
   user: user3
 
 fg_1:
   rating: 1
-  movie: forrest_gump
+  movie_id: 13
   user: user1

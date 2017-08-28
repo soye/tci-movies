@@ -29,8 +29,6 @@ class TMDB
         end
       end
 
-      puts url
-
       response = get(url, body: options.to_json)
       if response.success?
         get_movies_from_json(response)
@@ -103,7 +101,6 @@ class TMDB
       movie["runtime"] = movieItem["runtime"]
       movie["id"] = movieItem["id"]
       # movie["in_db"] = Movie.exists?(movieItem["id"])
-      puts movie
       movie
     end
 

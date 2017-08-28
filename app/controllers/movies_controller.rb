@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = TMDB.get_movie(params[:id])
-    @reviews = Review.where(movie_id: params[:id])
+    @reviews = Review.where(movie_id: params[:id]).order_by_recent
   end
 
   def search
