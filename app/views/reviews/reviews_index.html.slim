@@ -9,4 +9,4 @@ ul
       ' :
       - unless review.comment.empty?
         =< %Q{"#{review.comment}"}
-        '  by #{review.user.email} (#{review.created_at.strftime("%b %e, %Y")})
+      '  by #{review.user.email} (#{review.created_at.strftime("%b %e, %Y")})
